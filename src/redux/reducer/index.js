@@ -6,13 +6,11 @@ const reducer = (state = initialState, action) => {
         case 'ADD': {
             return {
                 ...state,
-                todo: state.todo.push(action.payload)
+                todo: [...state.todo, action.payload]
             }
-
         }
         default :
             return state;
-
     }
 }
 

@@ -2,44 +2,36 @@ import {useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 
 export default function ShowInputs() {
-
     const todoList = useSelector((list) => list.todo);
     const dispatchList = useDispatch();
 
+    const [formState, setFormState] = useState({firstname: '', checked: ''})
 
-    let [formState, setFormState] = useState({firstname: '', checked: true})
-    let {firstname, checked} = formState
-
-    const submit = (e) => {
-        e.preventDefault();
-    }
-
+    const {firstname, checked} = formState;
     const onValueChang = (e) => {
-        let name = e.target.name;
-        let value = e.target.value;
+        const name = e.target.name;
+        const value = e.target.value;
         setFormState({...formState, [name]: value});
     }
 
-console.log(todoList);
+    console.log(todoList)
 
     return (
-
         <div>
             <div>
-                <form onSubmit={submit}>
+                <div>
                     <input onChange={onValueChang} type="text" name={'firstname'} value={firstname}
                            placeholder={'Enter Name'}/>
                     <div> true
-                        <input onChange={onValueChang} type="radio" name='checked' value={checked}/>
+                        <input onChange={onValueChang} type="radio" name='checked' value={true}/>
                     </div>
                     <div>
                         false
-                        <input onChange={onValueChang} type="radio" name="checked" value={checked}/>
+                        <input onChange={onValueChang} type="radio" name="checked" value={false}/>
                     </div>
-                    <button onClick={()=> dispatchList({type:'ADD',payload:formState})}>add to list</button>
-                </form>
-            </div>
-            <div>
+                    <button onClick={() => dispatchList({type: 'ADD', payload: {firstname, checked}})}>add to list
+                    </button>
+                </div>
             </div>
         </div>
     );
